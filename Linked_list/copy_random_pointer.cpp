@@ -1,5 +1,25 @@
-// TC : O(2n) SC : O(2n)
+
+// Brute force approach using hashmap
+// TC : O(2n) SC : O(n) for hashmap storage
 // Definition for a Node.
+// We are given a linked list where each node has:
+
+// next → pointer to the next node
+
+// random → pointer to any node in the list (or nullptr)
+
+// We need to create a deep copy of this list.
+
+// ✅ Solution 1: Hash Map (Extra Space)
+// Idea
+
+// Maintain a map from old node → new node.
+
+// First pass: clone nodes and store mapping.
+
+// Second pass: fix random pointers using the map.
+
+
 class Node {
 public:
     int val;
@@ -53,7 +73,10 @@ public:
 };
 
 
-//  TC : O(2n) SC: O(2n)
+// optimal solution without extra space
+
+
+//  TC : O(2n) SC: O(1)
 
 // Definition for a Node.
 
