@@ -29,11 +29,12 @@ class Solution {
         left+=2;
         right+=2;
       }
-      else{
-        res=res+m[s[left]];
-        left++;
+      // we don't need this part 
+      // else{
+      //   res=res+m[s[left]];
+      //   left++;
     
-      }
+      // }
       }
       return res;
         }

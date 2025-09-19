@@ -15,20 +15,20 @@ class Solution {
         bool isPalindrome(ListNode* head) {
          
         ListNode* cloneHead = new ListNode(head->val);
-        ListNode* cloneTail = cloneHead;
-        ListNode* current_elm = head->next;
+        ListNode*  dummy=cloneHead;
+        ListNode* original_head = head;
     
-        while (current_elm) {
-            cloneTail->next = new ListNode(current_elm->val);
-            cloneTail = cloneTail->next;
-            current_elm = current_elm->next;
+        while (original_head !=nullptr && original_head->next!=nullptr) {
+            cloneHead->next = new ListNode(original_head->next->val);
+            cloneHead=cloneHead->next;
+            original_head=original_head->next;
         }
        
          
     
             ListNode*temp=head;
             ListNode*prev=nullptr;
-            ListNode*current=cloneHead;
+            ListNode*current=dummy;
             ListNode*next=nullptr;
             while(current!=nullptr){
                 next=current->next;
@@ -36,7 +36,7 @@ class Solution {
                 prev=current;
                 current=next;
             }
-            while(temp!=nullptr){
+            while(temp!=nullptr ){
                 if(temp->val!=prev->val){
                     return false;
                 }

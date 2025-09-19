@@ -47,7 +47,7 @@ public:
                 r++;
             }
             
-            if(l < r) { //l     r
+            if(l < r) { 
                 reverse(s.begin()+l, s.begin()+r);
                 
                 s[r] = ' ';

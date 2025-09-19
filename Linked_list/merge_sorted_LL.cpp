@@ -26,7 +26,7 @@ class Solution {
         }
     };
     
-    // without suing any extra space :
+    // without using any extra space :
 
     class Solution {
         public:
@@ -56,3 +56,26 @@ class Solution {
             }
         };
         
+
+        // using recursion :
+
+        struct Node* mergeTwoLists(Node *list1,Node *list2) {
+        if(list1 == NULL) {
+            return list2;
+        }
+
+        if(list2 == NULL) {
+            return list1;
+        }
+
+        struct Node* result;
+        if(list1->data < list2->data) {
+            result = list1;
+            result->next = mergeTwoLists(list1->next, list2);
+        } else {
+            result = list2;
+            result->next = mergeTwoLists(list1, list2->next);
+        }
+
+        return result;
+    }

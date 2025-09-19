@@ -60,36 +60,43 @@ count++;
     }
 };
 
-//optimal approach : O(n+n-n%k):
+//optimal approach : TC : O(n) SC : O(1)
 class Solution {
 public:
+ListNode * lastnodefinder(ListNode* head,int length){
+    int count=1;
+    ListNode* temp=head;
+
+    while(temp!=nullptr){
+        if(count==length){
+            return temp;
+        }
+        count++;
+        temp=temp->next;
+    }
+    return nullptr;
+}
     ListNode* rotateRight(ListNode* head, int k) {
-        if (!head || !head->next || k == 0) return head;
-
-        // Step 1: Find length and tail
-        ListNode* tail = head;
-        int n = 1;
-        while (tail->next) {
-            tail = tail->next;
-            n++;
+    if(head==nullptr || k==0){
+        return head;
+    }
+        ListNode* temp=head;
+        ListNode*tail;
+        int size=0;
+        while(temp!=nullptr){
+        size++;
+        tail=temp;
+        temp=temp->next;
         }
-
-        // Step 2: Make the list circular
-        tail->next = head;
-
-        // Step 3: Find new tail and head
-        k = k % n;
-        int stepsToNewTail = n - k;
-        ListNode* newTail = head;
-        while (--stepsToNewTail) {
-            newTail = newTail->next;
+        if(k%size==0){
+            return head;
         }
+        k=k%size;
+        tail->next=head;
+        ListNode * lastnode=lastnodefinder(head,size-k);
+        head=lastnode->next;
+        lastnode->next=nullptr;
+        return head;
 
-        ListNode* newHead = newTail->next;
-
-        // Step 4: Break the circle
-        newTail->next = nullptr;
-
-        return newHead;
     }
 };

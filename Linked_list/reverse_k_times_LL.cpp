@@ -35,12 +35,11 @@
                 // Step 5: Connect with previous group
                 
                 prevGroupTail->next = prev;  // this step is done to ensure that previous group is connected to correct head of new reversed group;
-                groupHead->next = current; // this step is done to ensure that new reversed group's tail is connected to next node.
+                groupHead->next = current; // this is necessary beacuse if do not do this then last group which is left becuase of less than k will not be connected to the previous group
                  
                 // Move prevGroupTail to the tail of the reversed group
                 prevGroupTail = groupHead;  
-                cout<<prevGroupTail->next->val;
-                cout<<groupHead->next->val;
+                
                 // Decrement total node count
                 totalNodes -= k;
             }
@@ -49,3 +48,55 @@
         }
     };
     
+
+
+    // recursive approach : O(N):
+
+    int getlength(Node*head,int k){
+    int c=0;
+    while(head!=NULL){
+        c++;
+        head=head->next;
+
+    }
+    return c;
+
+}
+
+Node* kReverse(Node* head, int k) {
+    // Write your code here.
+    //base case
+    if(head==NULL){
+        return NULL;
+
+    }
+
+    Node*prev=NULL;
+    Node*curent=head;
+    Node*forward=NULL;
+
+    int c=0;
+    while(curent!=NULL && c<k){
+        forward=curent->next;
+        
+        curent->next=prev;
+        prev=curent;
+        curent=forward;
+        c++;
+    }
+
+    //
+    if(forward!=NULL ){
+        // head->next=kreverse(forwars,k);
+        if(getlength(forward,k)>=k){
+            head->next = kReverse(forward, k); // beacause the head is now the tail of the reversed part
+
+        }
+        else{
+            head->next=forward;
+        }
+        
+    }
+
+    return prev;
+}
