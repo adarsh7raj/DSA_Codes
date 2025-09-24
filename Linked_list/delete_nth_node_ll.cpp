@@ -43,6 +43,18 @@ class Solution {
 
     // in O(n) time :
 
+
+//     Optimal (O(n)) with Two Pointers
+
+// Use a dummy node for edge cases.
+
+// Move fast pointer n+1 steps ahead.
+
+// Move fast and slow together until fast reaches the end.
+
+// slow will be just before the node to delete.
+
+
     class Solution {
         public:
             ListNode* removeNthFromEnd(ListNode* head, int n) {

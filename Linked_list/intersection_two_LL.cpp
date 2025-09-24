@@ -19,7 +19,7 @@ class Solution {
     };
 
     //optimal solution : O(n+m):
-
+    // more lengthy code less efficient
     class Solution {
         public:
             ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
@@ -66,3 +66,30 @@ class Solution {
             }
         };
         
+
+        //approach 3 : optimal approach : TC : O(n+m) , SC : O(1):
+
+//very concise code :
+class Solution{
+    public:
+        ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+            if(headA==nullptr || headB==nullptr){
+                return nullptr;
+            }
+            ListNode* tempA=headA;
+            ListNode* tempB=headB;
+            while(tempA!=tempB){
+                if(tempA==nullptr){
+                    tempA=headB;
+                }else{
+                    tempA=tempA->next;
+                }
+                if(tempB==nullptr){
+                    tempB=headA;
+                }else{
+                    tempB=tempB->next;
+                }
+            }
+            return tempA;
+        }
+}

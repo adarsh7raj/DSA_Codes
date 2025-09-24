@@ -41,7 +41,7 @@
 
 // Without if (left <= right), we’ll again traverse a non-existent column → ❌ bug.
 
-
+//TC : O(m*n) SC : O(1)
 class Solution {
 public:
     vector<int> spiralOrder(vector<vector<int>>& matrix) {

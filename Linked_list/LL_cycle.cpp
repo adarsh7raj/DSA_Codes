@@ -39,12 +39,10 @@ class Solution {
         bool hasCycle(ListNode *head) {
             ListNode* slow=head;
             ListNode*fast=head;
-            if(head==nullptr){
+            if(head==nullptr || head->next==nullptr){
                 return false;
             }
-            if(head->next==nullptr ){
-                return false;
-            }
+           
             if(head->next==head){
                 return true;
             }
@@ -52,7 +50,7 @@ class Solution {
         slow=slow->next;
         fast=fast->next->next;
            if(slow==fast){
-            cout<<"hello";
+            
              return true;
         }
             }
