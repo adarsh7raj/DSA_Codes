@@ -91,3 +91,67 @@ class Solution {
 
         return {predecessor, successor};
     }
+
+
+    // optimal solution 
+
+    /* BST Node
+class Node
+{
+   public:
+    int data;
+    Node *left;
+    Node *right;
+
+    Node(int x){
+        data = x;
+        left = NULL;
+        right = NULL;
+    }
+}; */
+
+  class Solution {
+public:
+    // Function to find predecessor and successor
+    void findPredSucc(Node* root, Node*& pre, Node*& suc, int key) {
+      while(root!=nullptr){
+           if (root->data == key) {
+            // Find predecessor (max in left subtree)
+            if (root->left) {
+                Node* temp = root->left;
+                while (temp->right) {
+                    temp = temp->right;
+                }
+                pre = temp;
+            }
+            // Find successor (min in right subtree)
+            if (root->right) {
+                Node* temp = root->right;
+                while (temp->left) {
+                    temp = temp->left;
+                }
+                suc = temp;
+            }
+            break;
+        } else if (root->data > key) {
+            suc = root; // Possible successor
+            root=root->left;
+        } else {
+            pre = root; // Possible predecessor
+            root=root->right;
+        }
+      }
+
+       
+    }
+
+ 
+    vector<Node*> findPreSuc(Node* root, int key) {
+        // code here
+       
+        Node* pre = nullptr;
+    Node* suc = nullptr;
+    findPredSucc(root, pre, suc, key);
+    return {pre, suc};
+    }
+};

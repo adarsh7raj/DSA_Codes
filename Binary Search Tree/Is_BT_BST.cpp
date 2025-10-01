@@ -1,23 +1,92 @@
 class Solution {
 public:
 
-    /*
-     * Helper function to validate if a binary tree is a valid Binary Search Tree (BST).
-     * Each node must lie within a range: > minvalue and < maxvalue
-     * Traverses the tree in DFS fashion and checks BST property at each node.
-     * 
-     * Time Complexity: O(n)
-     *   - Visits each node exactly once
-     * 
-     * Space Complexity: O(h)
-     *   - h = height of tree
-     *   - O(log n) for balanced tree
-     *   - O(n) for worst-case (unbalanced tree)
-     */
+// 🌟 Intuition
 
-//  So whenever we have to check whether a tree is a BST or not, we can use the same approach given the root we can
-// find the max from and min from the left and right subtree and then check if the current node is greater than the 
-//max of the left subtree and less than the min of the right subtree and secondly we have to find that its left 
+// The problem is to check whether a given binary tree is a valid Binary Search Tree (BST).
+// A BST has this property:
+
+// For every node:
+
+// All values in its left subtree must be strictly less than the node’s value.
+
+// All values in its right subtree must be strictly greater than the node’s value.
+
+// And this condition must hold true for every node in the tree.
+
+// Now, if we only check the immediate children of a node, it’s not enough.
+// 👉 Example:
+
+//        10
+//       /  \
+//      5    15
+//          /  \
+//         6    20
+
+
+// At node 15, the left child is 6, which is less than 15, so it seems okay. But 6 is not greater than 10 (root). This violates the BST property.
+
+// So, we need a way to carry bounds (minimum and maximum values allowed) for each node as we traverse.
+
+// At root, valid range = (-∞, +∞).
+
+// When we go left, we tighten the upper bound (max = parent’s value).
+
+// When we go right, we tighten the lower bound (min = parent’s value).
+
+// At each node, we check:
+
+// If node->val is not strictly inside (min, max), return false.
+
+// Recursively check both subtrees with updated bounds.
+
+// This guarantees that the tree satisfies the BST property everywhere.
+
+// 📝 Algorithm
+
+// Start at the root with range (LONG_MIN, LONG_MAX).
+
+// If the node is nullptr, return true (empty tree is valid).
+
+// Check if root->val lies in the valid range (minvalue, maxvalue).
+
+// If not, return false.
+
+// Recursively check:
+
+// Left subtree with range (minvalue, root->val)
+
+// Right subtree with range (root->val, maxvalue)
+
+// If both subtrees are valid, return true. Otherwise, return false.
+
+// ✅ Example Walkthrough
+
+// Take the valid BST:
+
+//        10
+//       /  \
+//      5    15
+//          /  \
+//         12   20
+
+
+// At root (10): range = (-∞, ∞) ✅
+
+// Left child (5): range = (-∞, 10) → 5 < 10 ✅
+
+// Right child (15): range = (10, ∞) → 15 > 10 ✅
+
+// Left child of 15 (12): range = (10, 15) → ✅
+
+// Right child of 15 (20): range = (15, ∞) → ✅
+// All nodes satisfy → BST valid.
+
+// ⏱ Complexity
+
+// Time Complexity: O(N) (we visit every node once).
+
+// Space Complexity: O(H) where H = height of tree (recursion stack). Worst case (skewed tree) → O(N).
 //and right subtree are also BSTs
     bool isValid(TreeNode* root, long minvalue, long maxvalue) {
         // Base case: empty tree is always valid
