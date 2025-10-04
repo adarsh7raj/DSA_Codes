@@ -1,5 +1,7 @@
 // brute force approach :
-
+// TC : O(2^(2n) * n) -> generating all combinations of length 2n and checking each for validity
+// SC : O(n * 2^(2n)) for the ans storage + O(n) for recursion stack = O(n * 2^(2n))
+// we can pass the str by reference this will make the SC to O(2n) only for the recurion stack
 class Solution {
 public:
     bool isValid(string s) {
@@ -41,7 +43,8 @@ public:
 
 
 // optimal solution:
-
+// TC : O(2^n)
+//SC:O(2n)
 class Solution {
 public:
     void solve(int n, vector<string> &ans, string str, int open, int close) {
@@ -56,7 +59,7 @@ public:
         }
 
         // Add ')' if it won't break validity
-        if (close < n) {
+        if (close < open) {
             solve(n, ans, str + ")", open, close + 1);
         }
     }
