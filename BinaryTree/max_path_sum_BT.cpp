@@ -14,7 +14,7 @@ public:
         int r = solve(root->right);
         
         int neeche_hi_milgaya_answer = l + r + root->val; //(1)
-        s
+        
         int koi_ek_acha = max(l, r) + root->val; //(2)
         
         int only_root_acha = root->val; //(3)
