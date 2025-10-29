@@ -45,6 +45,13 @@ public:
 // optimal solution:
 // TC : O(2^n)
 //SC:O(2n)
+// At any point, the number of closing parentheses ')' cannot exceed opening '('.
+// → ensures no invalid prefix like ")(" or "())(".
+
+// At the end, the total number of '(' must equal the total number of ')'.
+// → ensures all opened parentheses are closed.
+
+// Maximum open count ≤ n.
 class Solution {
 public:
     void solve(int n, vector<string> &ans, string str, int open, int close) {

@@ -62,9 +62,8 @@ class Solution {
         solve(n,ans,"",0);
         return ans;
     }
-};
-
-// slightly optimized approach
+}
+// slightly optimized approach  this 
 // TC : O(2^n * n)
 // SC : O(n * 2^n) for the ans storage + O(n) for recursion stack = O(n * 2^n)
 class Solution {
