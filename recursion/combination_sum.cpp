@@ -64,3 +64,34 @@ void find(int i,vector<vector<int>>& subset,vector<int>&candidates,vector<int> &
          return subset;
     }
 };
+
+int count =0;
+void solve(int prev,int n,int k,int N,vector<int>temp){
+
+    if(n>N){
+        return;
+    }
+    if(temp.size()==k)
+{
+    count++;
+    return;
+}
+if(n%prev==0){
+    temp.push_back(n);
+    int last=temp.back();
+    solve(last,n,k,N,temp);
+    temp.pop_back();
+
+
+}
+else{
+    solve(prev,n+1,k,N,temp);
+}
+}
+int main(){
+    int N=3;
+    int k=2;
+    vector<int>temp;
+    solve(1,1,k,N,temp);
+    return count;
+}
