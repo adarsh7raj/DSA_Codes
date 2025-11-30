@@ -46,7 +46,7 @@ class Solution {
     };
     
 
-    
+
 // optimal solution using sliding window
 //TC:O(2n) and SC:O(1)
 class Solution {
@@ -61,6 +61,8 @@ public:
             int count_zero=0;
             while(r<n){
                 sum+=nums[r];
+
+                //  we will add all prefix zeros to count when we get sum==goal
                 while(l<r && (nums[l]==0 || sum>goal)){
                     if(nums[l]==0){
                         count_zero++;
