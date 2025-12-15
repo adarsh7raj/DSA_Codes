@@ -1,5 +1,7 @@
 #include<iostream>
 using namespace std;
+// TC -> O(N)
+// SC -> O(1)
 
 void Heapify(int arr[],int n,int index){
     int largest=index;
@@ -35,3 +37,37 @@ int main(){
     int arr[]={10, 5, 3, 2, 4};
     BuildMaxHeap(arr, 5);
 }
+
+
+// convert min heap to max heap
+// we can use the same build heap function
+
+class Solution {
+  public:
+  void Heapify(vector<int>&arr,int n,int index){
+    int largest=index;
+    int leftChild=2*index+1;
+    int rightChild=2*index+2;
+
+    if(leftChild<n && arr[leftChild]>arr[largest]){
+        largest=leftChild;
+    }
+    if(rightChild<n && arr[rightChild]>arr[largest]){
+        largest=rightChild;
+    }
+    if(largest!=index){
+        swap(arr[largest],arr[index]);
+        Heapify(arr,n,largest);
+    }
+    return;
+}
+  void BuildHeap(vector<int>&arr,int N){
+      for(int i=N/2-1;i>=0;i--){
+          Heapify(arr,N,i);
+      }
+  }
+    void convertMinToMaxHeap(vector<int> &arr, int N) {
+        
+        BuildHeap(arr,N);
+    }
+};
