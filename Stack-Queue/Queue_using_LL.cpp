@@ -1,65 +1,72 @@
-#include <iostream>
-using namespace std;
-
 class Node {
-public:
+  public:
     int data;
     Node* next;
+
+    Node(int new_data) {
+        data = new_data;
+        next = nullptr;
+    }
 };
 
-class Queue {
-    Node *frontNode, *rearNode;
-
-public:
-    Queue() {
-        frontNode = rearNode = nullptr;
-    }
-
-    void push(int x) {
-        Node* temp = new Node();
-        temp->data = x;
-        temp->next = nullptr;
-
-        if (rearNode == nullptr) {
-            frontNode = rearNode = temp;
-        } else {
-            rearNode->next = temp;
-            rearNode = temp;
-        }
-    }
-
-    void pop() {
-        if (frontNode == nullptr) {
-            cout << "Queue Underflow\n";
-            return;
-        }
-        Node* temp = frontNode;
-        frontNode = frontNode->next;
-
-        if (frontNode == nullptr) {
-            rearNode = nullptr;
-        }
-
-        delete temp;
-    }
-
-    int front() {
-        if (frontNode == nullptr) {
-            cout << "Queue is empty\n";
-            return -1;
-        }
-        return frontNode->data;
+class myQueue {
+int sz;
+Node* front_node;
+Node* rear_node;
+  public:
+    myQueue() {
+        // Initialize your data members
+        front_node=nullptr;
+        rear_node=nullptr;
+        sz=0;
+        
+        
     }
 
     bool isEmpty() {
-        return frontNode == nullptr;
+        // check if the queue is empty
+        if(sz==0){
+            return true;
+        }
+        return false;
+    }
+
+    void enqueue(int x) {
+        // Adds an element x at the rear of the queue
+        if(sz==0){
+            rear_node=front_node=new Node(x);
+        }
+        else{
+            Node* temp=new Node(x);
+            rear_node->next=temp;
+            rear_node=temp;
+        }
+        sz++;
+    }
+
+    void dequeue() {
+        // Removes the front element of the queue
+        if(sz==0){
+            
+            return ;
+        }
+        Node * temp=front_node;
+        front_node=front_node->next;
+        delete temp;
+        sz--;
+    }
+
+    int getFront() {
+        // Returns the front element of the queue
+        // If queue is empty, return -1
+        if(sz==0){
+            return -1;
+        }
+        return front_node->data;
+    }
+
+    int size() {
+        // Returns the current size of the queue.
+        return sz;
     }
 };
-
-int main() {
-    Queue q;
-    q.push(5);
-    q.push(15);
-    q.pop();
-    cout << "Front: " << q.front() << endl; // Should print 15
-}

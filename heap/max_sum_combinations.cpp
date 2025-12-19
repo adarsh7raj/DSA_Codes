@@ -39,7 +39,7 @@ public:
 
 
 // optimal approach using max heap and set
-// T.C : O(NlogN + KlogN)
+// T.C : O(NlogN + Klogk)
 // Intuition
 
 // The largest possible sum is always max(A) + max(B).
@@ -52,7 +52,8 @@ public:
 
 // (A[0] + B[1]) → take the next element in B
 
-// So instead of generating all n² sums, we use a max heap to always pick the current largest sum and then expand only its neighbors.
+// So instead of generating all n² sums, we use a max heap to always pick the current largest sum
+// and then expand only its neighbors.
 
 // A set is used to avoid pushing the same (i, j) index pair more than once.
 

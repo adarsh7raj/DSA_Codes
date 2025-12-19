@@ -1,6 +1,7 @@
 #include <iostream>
 using namespace std;
-
+// we have implemented stack using ll in reversed order suppose we habe to push : [10,20,30]
+// the linked list will be : 30->20->10->nullptr
 class Node {
 public:
     int data;
@@ -9,10 +10,11 @@ public:
 
 class Stack {
     Node* topNode;
-
+    int size;
 public:
     Stack() {
         topNode = nullptr;
+        size = 0;
     }
 
     void push(int x) {
