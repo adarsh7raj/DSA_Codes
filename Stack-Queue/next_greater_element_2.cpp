@@ -32,3 +32,34 @@ public:
     return ans;
     }
 };
+
+// more optimized approach 
+//
+class Solution {
+public:
+    vector<int> nextGreaterElements(vector<int>& nums) {
+        int n=nums.size();
+    stack<int>st;
+    vector<int>nge(n,-1);
+   
+    
+    for(int k=2*n-1; k>=0;k--){
+        int i=k%n;
+  while(!st.empty() && st.top()<=nums[i]){
+    st.pop();
+  }
+  if(k<n){
+    if(st.empty()){
+        nge[i]=-1;
+    }
+    else{
+        nge[i]=st.top();
+    }
+  }
+  st.push(nums[i]);
+    }
+    
+    
+    return nge;
+    }
+};
