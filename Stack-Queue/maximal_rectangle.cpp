@@ -1,5 +1,5 @@
 
-
+// TC: O(n*m) SC: O(m)
 class Solution {
 public:
 int largestRectangleArea(vector<int>& heights) {

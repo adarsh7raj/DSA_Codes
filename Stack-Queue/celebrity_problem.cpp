@@ -70,3 +70,40 @@ else{
     return -1;
 }
     }
+
+
+    // another optimal solution TC: O(n) SC: O(1) without using stack
+
+    class Solution {
+  public:
+    int celebrity(vector<vector<int>>& mat) {
+        // code here
+     
+     int first=0;
+     int last=mat.size()-1;
+     while(first<last){
+         if(mat[first][last]==1){
+             first++;
+     }
+     else if(mat[last][first]==1){
+         last--;
+     }
+     else{
+         first++;
+         last--;
+     }
+    }
+    if(first>last){
+        return -1;
+    }
+    for(int i=0;i<mat.size();i++){
+        if(i==first){
+            continue;
+        }
+        if(mat[first][i]==1 || mat[i][first]==0){
+            return  -1;
+        }
+    }
+    return first;
+    }
+};

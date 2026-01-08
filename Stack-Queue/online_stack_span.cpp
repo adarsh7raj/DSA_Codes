@@ -26,36 +26,23 @@ public:
 };
 
 // optimal solution : TC: O(2n) SC: O(2n)
+// brute force O(n) 
 
- class StockSpanner {
+class StockSpanner {
     stack<pair<int,int>>st;
-    int index=-1;
 public:
     StockSpanner() {
-      
+        
     }
     
     int next(int price) {
-        index++;
-        int ans;
-        while(!st.empty() && st.top().first<=price){
-            st.pop();
+       int count=1;
+      while(!st.empty() && price>=st.top().first){
+        count+=st.top().second;
+        st.pop();
+      }
+      st.push({price,count});
+      return count;
         }
-        if(st.empty()){
-            ans=index+1;
-        }
-        else{
-             ans =  index - st.top().second;
-
-        }
-         
-           st.push({price,index});
-           return ans;
-    }
+    
 };
-
-/**
- * Your StockSpanner object will be instantiated and called as such:
- * StockSpanner* obj = new StockSpanner();
- * int param_1 = obj->next(price);
- */
