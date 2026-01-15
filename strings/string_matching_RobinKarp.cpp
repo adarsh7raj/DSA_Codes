@@ -1,52 +1,58 @@
-//optimal solution : 
-
-
-
-#include <iostream>
-#include <cmath>
-#include <string>
-
+#include <bits/stdc++.h>
 using namespace std;
 
-class KarpRabin {
-private:
-    const int PRIME = 101;
-                                                                                 
-    double calculateHash(const string& str) {
-        double hash = 0;
-        for (int i = 0; i < str.length(); ++i) {
-            hash += str[i] * pow(PRIME, i);
-        }
-        return hash;
+void rabinKarp(string txt, string pat) {
+    int n = txt.size();
+    int m = pat.size();
+
+    int base = 31;           // prime base
+    int mod = 1e9 + 7;       // large prime modulo
+
+    long long patHash = 0;
+    long long txtHash = 0;
+    long long power = 1;     // base^(m-1)
+
+    // compute base^(m-1)
+    for (int i = 0; i < m - 1; i++) {
+        power = (power * base) % mod;
     }
 
-    double updateHash(double prevHash, char oldChar, char newChar, int patternLength) {
-        double newHash = (prevHash - oldChar) / PRIME;
-        newHash += newChar * pow(PRIME, patternLength - 1);
-        return newHash;
+    // compute initial hashes
+    for (int i = 0; i < m; i++) {
+        patHash = (patHash * base + (pat[i] - 'A' + 1)) % mod;
+        txtHash = (txtHash * base + (txt[i] - 'A' + 1)) % mod;
     }
-      
-public:
-    int search(const string& text, const string& pattern) {
-        int patternLength = pattern.length();
 
+    // slide window over text
+    for (int i = 0; i <= n - m; i++) {
 
-        if (patternLength == 0 || patternLength > text.length()) return ;
-
-        double patternHash = calculateHash(pattern);
-        double textHash = calculateHash(text.substr(0, patternLength));
-
-        for (int i = 0; i <= text.length() - patternLength; ++i) {
-            if ((textHash == patternHash) ) { // float comparison with epsilon
-                if (text.substr(i, patternLength) == pattern) {
-                    cout << "Pattern found at index " << i << endl;
-                    return i;
+        // if hash matches, verify characters
+        if (patHash == txtHash) {
+            bool match = true;
+            for (int j = 0; j < m; j++) {
+                if (txt[i + j] != pat[j]) {
+                    match = false;
+                    break;
                 }
             }
-
-            if (i < text.length() - patternLength) {
-                textHash = updateHash(textHash, text[i], text[i + patternLength], patternLength);
+            if (match) {
+                cout << "Pattern found at index " << i << endl;
             }
         }
+
+        // compute next window hash
+        if (i < n - m) {
+            txtHash = (txtHash - (txt[i] - 'A' + 1) * power) % mod;
+            txtHash = (txtHash * base + (txt[i + m] - 'A' + 1)) % mod;
+            if (txtHash < 0) txtHash += mod;
+        }
     }
-};
+}
+
+int main() {
+    string txt = "ABABCABCAB";
+    string pat = "ABC";
+
+    rabinKarp(txt, pat);
+    return 0;
+}
