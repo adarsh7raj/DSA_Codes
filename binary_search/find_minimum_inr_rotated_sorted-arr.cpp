@@ -4,6 +4,7 @@
 class Solution {
 public:
     int find_pivot(vector<int>& nums, int l, int r) {
+        
         while(l < r) {
             int mid = l + (r-l)/2;
             
@@ -13,5 +14,5 @@ public:
                 r = mid;
             }
         }
-        return r;
+        return nums[r];
     }
