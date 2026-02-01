@@ -1,5 +1,50 @@
-#include <bits/stdc++.h>
-using namespace std;
+
+
+
+// simplest and cleanest binary search approach: O(nlog(max-min)):
+
+
+class Solution {
+  public:
+  
+  bool isPossible(vector<int>& stalls,int cows, int distance){
+      int placed_cow=1;
+      int last=stalls[0];
+      for(int i=1;i<stalls.size();i++){
+          if((stalls[i]-last)>=distance){
+              placed_cow++;
+              last=stalls[i];
+          }
+      }
+      if(placed_cow>=cows){
+          return true;
+      }
+      return false;
+  }
+    int aggressiveCows(vector<int> &stalls, int k) {
+        // code here
+        int n=stalls.size();
+        sort(stalls.begin(),stalls.end());
+        int l=1;
+        
+        int r=stalls[n-1]-stalls[0];
+        
+        while(l<=r){
+            int mid=l+(r-l)/2;
+            
+            if(isPossible(stalls,k,mid)){
+                l=mid+1;
+            }
+            else{
+                r=mid-1;
+            }
+        }
+        return r;
+    }
+};
+
+
+
 
 /*
 =====================================================================

@@ -1,7 +1,9 @@
-class Solution {
-  public:
-  
-  bool isPossible(vector<int> &arr,int students,int max_pages){
+// similar to book allocation problem
+// just change the variable names and comments from book allocation to painter's partition problem
+
+#include <vector>
+
+ bool isPossible(vector<int>& arr,int students,int max_pages){
       int student_allocated=1;
       int sum=0;
       for(int i=0;i<arr.size();i++){
@@ -19,9 +21,8 @@ class Solution {
       }
       return false;
   }
-    int findPages(vector<int> &arr, int k) {
-        // code here
-       
+int findLargestMinDistance(vector<int>& arr, int k) {
+    
         int n=arr.size();
         if(n<k){
             return -1;
@@ -43,4 +44,6 @@ class Solution {
         }
         return l;
     }
-};
+
+    
+

@@ -1,22 +1,42 @@
-//brute force approach: O(n^2):
 
 
 
-vector<int>ans;
-    int i=0;
-    int j=0;
-while(i<A.size()){
- int j=0;
- while(j<A[i].size()){
-     ans.push_back(A[i][j]);
-     j++;
- }
- i++;
-}
-sort(ans.begin(),ans.end());
-int median=ans.size()/2;
-return ans[median];
 
+// brute force approach TC:O(n+m), SC:O(n+m)
+class Solution {
+public:
+    double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+       vector<int>temp;
+       int l=0;
+       int r=0;
+       int n=nums1.size();
+       int m=nums2.size();
+       while( l<n && r<m){
+      if(nums1[l]>=nums2[r]){
+        temp.push_back(nums2[r]);
+        r++;
+      }
+      else{
+        temp.push_back(nums1[l]);
+        l++;
+      }
+       }
+
+       while(l<n){
+         temp.push_back(nums1[l]);
+         l++;
+       }
+       while(r<m){
+        temp.push_back(nums2[r]);
+        r++;
+       }
+       int len=temp.size();
+       if(len%2==1){
+        return temp[len/2];
+       }
+       return (temp[len/2-1]+temp[len/2])/2.0;
+    }
+};
 
 // optimal approach: 
 
@@ -72,37 +92,42 @@ int main() {
 }
 
 
-int upper_bound(vector<int>& arr, int x) {
-    int low = 0, high = arr.size();
-    while (low < high) {
-        int mid = (low + high) / 2;
-        if (arr[mid] <= x) {
-            low = mid + 1;
-        } else {
-            high = mid-1;
-        }
-    }
-    return low;
-}
 
-int median(vector<vector<int>> &matrix) {
-    int low=1;
-    int high=1e9;
-    int r=matrix.size();
-    int c=matrix[0].size();
-    int median_pos=(r*c+1)/2;
-    while(low<=high){
-        int mid=(low+high)/2;
-        int count=0;
-        for(int i=0;i<r;i++){
-            count+=upper_bound(matrix[i].begin(),matrix[i].end(),mid)-matrix[i].begin();
+//optimal approach: TC: O(log(max - min) )
+
+class Solution {
+public:
+    double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+        if(nums1.size() > nums2.size())
+            return findMedianSortedArrays(nums2, nums1);
+        
+        int m = nums1.size();
+        int n = nums2.size();
+        
+        int low = 0, high = m;
+        while(low <= high) {
+            
+            int Px = low + (high-low)/2;
+            int Py = (m+n+1)/2 - Px;
+            
+            int x1  = (Px == 0) ? INT_MIN : nums1[Px-1];
+            int x3 = (Px == m) ? INT_MAX : nums1[Px];
+            
+            int x2  = (Py == 0) ? INT_MIN : nums2[Py-1];
+            int x4 = (Py == n) ? INT_MAX : nums2[Py];
+            
+            if(x1 <= x4 && x2 <= x3) {
+                if((m+n)%2 == 0)
+                    return (max(x1, x2) + min(x3, x4))/2.0;
+                
+                return max(x1, x2);
+            } else if(x1 > x4) {
+                high = Px-1;
+            } else {
+                low = Px+1;
+            }
         }
-        if(count<median_pos){
-            low=mid+1;
-        }
-        else{
-            high=mid-1;
-        }
+        
+        return -1;
     }
-    return low;
-}
+};
