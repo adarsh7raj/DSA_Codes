@@ -61,7 +61,7 @@ public:
                 r = mid - 1;
             }
             else{
-                r=mid-1;
+                r=mid-1; // or l=mid+1;
             }
         }
 
