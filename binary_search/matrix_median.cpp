@@ -106,9 +106,9 @@ public:
         
         int low = 0, high = m;
         while(low <= high) {
-            
-            int Px = low + (high-low)/2;
-            int Py = (m+n+1)/2 - Px;
+             //(m+n+1)/2 is the total elements needed in left part
+            int Px = low + (high-low)/2; // elements from nums1
+            int Py = (m+n+1)/2 - Px;    // elements from nums2
             
             int x1  = (Px == 0) ? INT_MIN : nums1[Px-1];
             int x3 = (Px == m) ? INT_MAX : nums1[Px];
