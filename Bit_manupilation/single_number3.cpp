@@ -13,8 +13,7 @@ public:
             Xor>>= 1;
             pos++;
         }
-        int mask=1<<pos;// instead of finding position we can directly find the rightmost set bit 
-        //by doing Xor & -Xor
+        int mask=1<<pos;// instead of finding position we can directly find the mask by  Xor & -Xor
         int A=0;
         int B=0;
         for(int i=0;i<nums.size();i++){
