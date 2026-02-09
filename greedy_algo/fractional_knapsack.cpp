@@ -32,3 +32,38 @@ double fractionalKnapsack(vector<int>& val, vector<int>& wt, int capacity) {
 
     return total_profit;
 }
+
+
+
+// more clean code
+
+class Solution {
+public:
+    double fractionalKnapsack(vector<int>& val, vector<int>& wt, int capacity) {
+        vector<pair<double, pair<int,int>>> sack;
+
+        for (int i = 0; i < wt.size(); i++) {
+            double ratio = (double)val[i] / wt[i];
+            sack.push_back({ratio, {wt[i], val[i]}});
+        }
+
+        // sort by value/weight DESCENDING
+        sort(sack.rbegin(), sack.rend());
+
+        double profit = 0.0;
+
+        for (int i = 0; i < sack.size() && capacity > 0; i++) {
+            int weight = sack[i].second.first;
+            int value  = sack[i].second.second;
+
+            if (weight <= capacity) {
+                profit += value;
+                capacity -= weight;
+            } else {
+                profit += ((double)capacity / weight) * value;
+                capacity = 0;
+            }
+        }
+        return profit;
+    }
+};

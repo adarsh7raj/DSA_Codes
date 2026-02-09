@@ -22,3 +22,7 @@ class Solution {
         return result;
     }
 };
+
+
+
+// prime 
