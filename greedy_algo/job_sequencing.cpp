@@ -1,5 +1,7 @@
 class Solution {
 public:
+
+// this solution will give tle we can use dsu
     vector<int> jobSequencing(vector<int> &deadline, vector<int> &profit) {
         int n = deadline.size();
 // start with maximum profit jobs and try to schedule them as late as possible before their deadlines
