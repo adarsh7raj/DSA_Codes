@@ -17,7 +17,7 @@ class Solution {
             else if(inRecursion[v] == true)
                 return true;
         }
-        
+        // when we backtrack
         inRecursion[u] = false;
         return false;
         
