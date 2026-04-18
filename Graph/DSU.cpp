@@ -4,7 +4,7 @@ int find(int x, vector<int>& parent) {
     if (parent[x] == x) {
         return parent[x] // Path compression
     }
- return find(parent[x], parent);
+ return parent[x]=  find(parent[x], parent);
 }
 
 void union(int x,int y,vector<int>&parent){

@@ -12,7 +12,7 @@ class Solution {
         result[src]=0;
         pq.push({0,src});
         
-    vector<vector<pair<int, int>>> adj(V);
+vector<vector<int>>adj[V];
 
     for (auto& edge : edges) {
         int u = edge[0];
