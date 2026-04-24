@@ -68,7 +68,7 @@ public:
         if (x_parent == y_parent)
             return;
 
-        // 👇 Union by Rank logic
+        //  Union by Rank logic
         if (rank[x_parent] > rank[y_parent]) {
             parent[y_parent] = x_parent;
         } 

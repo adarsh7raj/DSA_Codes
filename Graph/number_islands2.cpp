@@ -95,7 +95,7 @@ vector<int> numberOfIslandII(int n, int m, vector<vector<int>>& A, int q) {
         int j = A[idx][1];
 
         if (mat[i][j] == 1) {
-            ans.push_back(count);
+            
             continue;
         }
 
